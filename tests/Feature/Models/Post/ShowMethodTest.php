@@ -35,17 +35,4 @@ class ShowMethodTest extends TestCase
 
         $response->assertOk();
     }
-
-    public function test_post_title_and_content_should_be_in_the_page()
-    {
-        $owner = User::factory()->create();
-
-        $post = Post::factory()->for($owner)->create();
-
-        $response = $this->get(route(self::POSTS_SHOW, ['post'=>$post]));
-
-        $response->assertOk();
-        $response->assertSee($post->title);
-        $response->assertSee($post->content);
-    }
 }

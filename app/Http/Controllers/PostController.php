@@ -20,11 +20,11 @@ class PostController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index(): \Inertia\Response
+    public function index()
     {
-        return Inertia::render('Posts/Index',[
-            'posts' => Post::orderBy('created_at','desc')->get(),
-        ]);
+//        return Inertia::render('Posts/Index',[
+//            'posts' => Post::orderBy('created_at','desc')->get(),
+//        ]);
     }
 
     /**
@@ -60,9 +60,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return Inertia::render('Posts/Show',[
-            'post' => $post
-        ]);
+//        return Inertia::render('Posts/Show',[
+//            'post' => $post
+//        ]);
     }
 
     /**

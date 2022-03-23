@@ -28,41 +28,4 @@ class IndexMethodTest extends TestCase
 
         $response->assertOk();
     }
-
-    public function test_guest_user_can_see_post_titles()
-    {
-        $owner = User::factory()->create();
-        $posts = Post::factory()->for($owner)->count(5)->create();
-        $response = $this->get(route(self::POSTS_INDEX));
-
-        $response->assertOk();
-
-        for($i=0;$i<5;$i++){
-            $response->assertSee($posts[$i]->title);
-        }
-    }
-
-    public function test_authenticated_user_can_see_post_titles()
-    {
-        $owner = User::factory()->create();
-        $posts = Post::factory()->for($owner)->count(5)->create();
-        $response = $this->actingAs(User::factory()->create())->get(route(self::POSTS_INDEX));
-
-        $response->assertOk();
-
-        for($i=0;$i<5;$i++){
-            $response->assertSee($posts[$i]->title);
-        }
-    }
-
-    public function test_the_order_of_posts_must_be_desc_by_created_at_time()
-    {
-        $owner = User::factory()->create();
-        Post::factory()->for($owner)->count(5)->create();
-        $response = $this->get(route(self::POSTS_INDEX));
-
-        $response->assertOk();
-
-        $response->assertSeeInOrder(Post::orderBy('created_at',"desc")->pluck('title')->toArray());
-    }
 }
