@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Support\Facades\Redirect;
 
 class PostController extends Controller
 {
@@ -32,11 +33,15 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StorePostRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $post = $request->user()->posts()->create($data);
+
+        return Redirect::route('posts.show', ['post'=>$post]);
     }
 
     /**
