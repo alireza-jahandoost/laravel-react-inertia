@@ -6,6 +6,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
@@ -17,11 +18,13 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
-    public function index()
+    public function index(): \Inertia\Response
     {
-        //
+        return Inertia::render('Posts/Index',[
+            'posts' => Post::orderBy('created_at','desc')->get(),
+        ]);
     }
 
     /**
